@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components/native";
 
+type StatusProps = {
+  status: boolean;
+};
+
 export const Container = styled.View`
   padding: 14px 12px;
   margin: 3px 0;
@@ -36,10 +40,11 @@ export const Description = styled.Text`
   flex: 1;
 `;
 
-export const Status = styled.View`
+export const Status = styled.View<StatusProps>`
   height: 14px;
   width: 14px;
   border-radius: 14px;
 
-  background-color: ${({ theme }) => theme.COLORS.GREEN_MID};
+  background-color: ${({ theme, status }) =>
+    status ? theme.COLORS.GREEN_MID : theme.COLORS.RED_MID};
 `;

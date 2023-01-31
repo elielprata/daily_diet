@@ -1,15 +1,21 @@
 import { Container, Description, Divider, Hour, Status } from "./styles";
 
-export function Meal() {
+type Props = {
+  hour: string;
+  description: string;
+  status: boolean;
+};
+
+export function Meal({ hour, description, status }: Props) {
   return (
     <Container>
-      <Hour>16:00</Hour>
+      <Hour>{hour}</Hour>
 
       <Divider />
 
-      <Description>Lanche</Description>
+      <Description>{description}</Description>
 
-      <Status />
+      <Status status={status} />
     </Container>
   );
 }
