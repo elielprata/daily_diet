@@ -13,6 +13,8 @@ export const Container = styled(TouchableOpacity)`
 
   min-height: 50px;
   max-height: 50px;
+
+  margin-bottom: 14px;
 `;
 
 export const Title = styled.Text`
