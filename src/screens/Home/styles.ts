@@ -1,11 +1,13 @@
+import { SectionList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView)`
   flex: 1;
 
   background-color: ${({ theme }) => theme.COLORS.GRAY_700};
 
-  padding: 24px;
+  padding: 20px;
 `;
 
 export const Header = styled.View`
@@ -28,4 +30,8 @@ export const Avatar = styled.Image`
 
   border-radius: 20px;
   border: 2px solid ${({ theme }) => theme.COLORS.GRAY_200};
+`;
+
+export const List = styled(SectionList)`
+  margin-top: 14px;
 `;
