@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components/native";
 import { ArrowUpRight } from "phosphor-react-native";
+import { TouchableOpacity } from "react-native";
 
-export const Container = styled.View`
+export const Container = styled(TouchableOpacity)`
   width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 
   background-color: ${({ theme }) => theme.COLORS.GREEN_LIGHT};
 
@@ -36,6 +37,6 @@ export const Arrow = styled(ArrowUpRight).attrs(({ theme }) => ({
   color: theme.COLORS.GREEN_DARK,
 }))`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
 `;

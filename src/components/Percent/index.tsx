@@ -1,12 +1,20 @@
 import { BackButton } from "@components/BackButton";
+import { TouchableOpacityProps } from "react-native";
 import { Arrow, Container, PercentText, Subtitle } from "./styles";
 
-export function Percent() {
+type Props = TouchableOpacityProps & {
+  percentage: number;
+  backButton?: boolean;
+};
+
+export function Percent({ percentage, backButton = false, ...rest }: Props) {
   return (
-    <Container>
-      <BackButton />
+    <Container {...rest}>
+      {backButton && <BackButton />}
+
       <Arrow />
-      <PercentText>92,00%</PercentText>
+
+      <PercentText>{percentage}%</PercentText>
       <Subtitle>das refeições dentro da dieta</Subtitle>
     </Container>
   );

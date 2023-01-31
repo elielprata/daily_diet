@@ -8,4 +8,6 @@ export const Date = styled.Text`
     font-family: ${theme.FONT_FAMILY.BOLD};
     color: ${theme.COLORS.GRAY_100};
   `}
+  margin-bottom: 5px;
+  margin-top: 10px;
 `;
