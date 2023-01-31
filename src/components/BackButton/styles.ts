@@ -5,11 +5,11 @@ import { TouchableOpacity } from "react-native";
 
 export const Container = styled(TouchableOpacity)`
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 10px;
+  left: 10px;
 `;
 
 export const Icon = styled(ArrowLeft).attrs(({ theme }) => ({
   size: 24,
-  color: theme.COLORS.RED_MID,
+  color: theme.COLORS.RED_DARK,
 }))``;
