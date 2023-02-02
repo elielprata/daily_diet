@@ -1,14 +1,20 @@
 import { TouchableOpacityProps } from "react-native";
-import { Container, Title } from "./styles";
+import { Container, IconPencil, IconPlus, IconTrash, Title } from "./styles";
 
 type Props = TouchableOpacityProps & {
   title: string;
+  icon?: "PLUS" | "TRASH" | "PENCIL";
+  light?: boolean;
 };
 
-export function Button({ title, ...rest }: Props) {
+export function Button({ title, icon, light, ...rest }: Props) {
   return (
-    <Container {...rest}>
-      <Title>{title}</Title>
+    <Container {...rest} light={light}>
+      {icon === "PLUS" && <IconPlus />}
+      {icon === "TRASH" && <IconTrash light={light} />}
+      {icon === "PENCIL" && <IconPencil />}
+
+      <Title light={light}>{title}</Title>
     </Container>
   );
 }

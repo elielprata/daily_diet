@@ -3,13 +3,24 @@ import styled from "styled-components/native";
 import { ArrowLeft } from "phosphor-react-native";
 import { TouchableOpacity } from "react-native";
 
-export const Container = styled(TouchableOpacity)`
+export type BackButtonTypeStyleProps = "PRIMARY" | "SECONDARY";
+
+type Props = {
+  type?: BackButtonTypeStyleProps;
+};
+
+export const Container = styled(TouchableOpacity)<Props>`
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 17px;
+  left: 17px;
 `;
 
-export const Icon = styled(ArrowLeft).attrs(({ theme }) => ({
+export const Icon = styled(ArrowLeft).attrs<Props>(({ theme, type }) => ({
   size: 24,
-  color: theme.COLORS.RED_DARK,
-}))``;
+  color:
+    type === "PRIMARY"
+      ? theme.COLORS.GREEN_DARK
+      : type === "SECONDARY"
+      ? theme.COLORS.RED_DARK
+      : theme.COLORS.GRAY_200,
+}))<Props>``;

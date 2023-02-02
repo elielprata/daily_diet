@@ -1,9 +1,16 @@
-import { Container, Icon } from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { Container, Icon, BackButtonTypeStyleProps } from "./styles";
 
-export function BackButton() {
+type Props = {
+  type?: BackButtonTypeStyleProps;
+};
+
+export function BackButton({ type }: Props) {
+  const { goBack } = useNavigation();
+
   return (
-    <Container>
-      <Icon />
+    <Container onPress={() => goBack()}>
+      <Icon type={type} />
     </Container>
   );
 }
