@@ -4,7 +4,7 @@ export async function convertToSectionList(list: any, group: string) {
   const listGroup = _.groupBy(list, group);
 
   let sectionList: [] = [];
-  const testing = await Object.keys(listGroup).map((item) => {
+  await Object.keys(listGroup).map((item) => {
     sectionList = [
       ...sectionList,
       {

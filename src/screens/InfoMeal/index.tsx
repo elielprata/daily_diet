@@ -1,4 +1,4 @@
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Alert } from "react-native";
 
 import { Button } from "@components/Button";
@@ -16,9 +16,11 @@ import {
   StatusText,
   StatusView,
 } from "./styles";
+import { mealRemove } from "@storage/meal/mealRemove";
 
 type RouteParams = {
   meal: {
+    id: string;
     name: string;
     description: string;
     date: string;
@@ -29,13 +31,17 @@ type RouteParams = {
 
 export function InfoMeal() {
   const route = useRoute();
+  const { navigate } = useNavigation();
   const { meal } = route.params as RouteParams;
 
   function handleRemoveMeal() {
     Alert.alert("", "Deseja realmente excluir o registro da refeição?", [
       {
         text: "Sim",
-        onPress: () => console.log("Sim"),
+        onPress: () => {
+          mealRemove(meal.id);
+          //navigate("home");
+        },
       },
       {
         text: "Não",
@@ -69,7 +75,11 @@ export function InfoMeal() {
             </StatusView>
           )}
 
-          <Button title="Editar refeição" icon="PENCIL" />
+          <Button
+            title="Editar refeição"
+            icon="PENCIL"
+            onPress={() => navigate("editMeal", { meal })}
+          />
           <Button
             title="Excluir refeição"
             icon="TRASH"

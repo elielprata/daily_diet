@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { Container, Content, DoubleInputs, Form } from "./styles";
 
@@ -8,34 +8,45 @@ import { Input } from "@components/Input";
 import { Diet } from "@components/Diet";
 import { Button } from "@components/Button";
 
-import { mealCreate } from "@storage/meal/mealCreate";
+import { mealEdit } from "@storage/meal/mealEdit";
 
-export function CreateMeal() {
-  const [name, setName] = useState("Lanche");
-  const [description, setDescription] = useState("Hamburger");
-  const [date, setDate] = useState("12.01");
-  const [hour, setHour] = useState("13:00");
-  const [status, setStatus] = useState(false);
+type RouteParams = {
+  meal: any;
+};
+
+export function EditMeal() {
+  const route = useRoute();
+  const { meal } = route.params as RouteParams;
+
+  const [name, setName] = useState(meal.name);
+  const [description, setDescription] = useState(meal.description);
+  const [date, setDate] = useState(meal.date);
+  const [hour, setHour] = useState(meal.hour);
+  const [status, setStatus] = useState(meal.status);
 
   const { navigate } = useNavigation();
 
-  function handleNewMeal() {
-    const meal = {
-      id: new Date().getTime(),
+  async function handleEditMeal() {
+    const mealUpdate = {
+      id: meal.id,
       name,
       description,
       date,
       hour,
       status,
     };
-    mealCreate(meal as never);
+    await mealEdit(mealUpdate);
 
-    navigate("feedback", { feedback: status ? "POSITIVE" : "NEGATIVE" });
+    navigate("home");
   }
 
   function handleDefineStatus(status: boolean) {
-    setStatus(status);
+    return setStatus(status);
   }
+
+  useEffect(() => {
+    handleDefineStatus(meal.status);
+  }, [meal]);
 
   return (
     <Container>
@@ -60,9 +71,9 @@ export function CreateMeal() {
             <Input label="Hora" double onChangeText={setHour} value={hour} />
           </DoubleInputs>
 
-          <Diet defineStatus={handleDefineStatus} />
+          <Diet defineStatus={handleDefineStatus} statusProp={meal.status} />
 
-          <Button title="Cadastrar refeição" onPress={handleNewMeal} />
+          <Button title="Salvar alterações" onPress={handleEditMeal} />
         </Form>
       </Content>
     </Container>

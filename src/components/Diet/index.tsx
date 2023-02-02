@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Buttons, Container, Status, Text, TextButton } from "./styles";
 
 type Props = {
   defineStatus: (status: boolean) => void;
+  statusProp?: boolean;
 };
 
 type ButtonSelectedProps = "YES" | "NO" | "";
 
-export function Diet({ defineStatus }: Props) {
+export function Diet({ defineStatus, statusProp }: Props) {
   const [selected, setSelected] = useState<ButtonSelectedProps>("");
 
   function handleSelect(status: boolean) {
@@ -15,13 +16,18 @@ export function Diet({ defineStatus }: Props) {
 
     status === true ? setSelected("YES") : setSelected("NO");
   }
+
+  useEffect(() => {
+    statusProp === true ? setSelected("YES") : setSelected("NO");
+  }, []);
+
   return (
     <Container>
       <Text>Está dentro da dieta?</Text>
 
       <Buttons>
         {selected === "YES" ? (
-          <Button onPress={() => handleSelect(true)} type="PRIMARY">
+          <Button onPress={() => defineStatus(true)} type="PRIMARY">
             <Status status={true} />
             <TextButton>Sim</TextButton>
           </Button>

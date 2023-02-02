@@ -5,7 +5,7 @@ import { Arrow, Container, PercentText, Subtitle } from "./styles";
 import { BackButton } from "@components/BackButton";
 
 type Props = TouchableOpacityProps & {
-  percentage: number;
+  percentage: string;
   backButton?: boolean;
 };
 
