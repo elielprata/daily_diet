@@ -6,7 +6,7 @@ import { Container, Content, DoubleInfo, Text } from "./styles";
 export function Statistics() {
   return (
     <Container>
-      <Percent percentage={90.86} backButton />
+      <Percent percentage={90.86} backButton activeOpacity={1} />
 
       <Content>
         <Text>Estatísticas gerais</Text>

@@ -1,13 +1,13 @@
 import { Container, Date } from "./styles";
 
 type Props = {
-  day: string;
+  date: string;
 };
 
-export function MealHeader({ day }: Props) {
+export function MealHeader({ date }: Props) {
   return (
     <Container>
-      <Date>{day}</Date>
+      <Date>{date}</Date>
     </Container>
   );
 }

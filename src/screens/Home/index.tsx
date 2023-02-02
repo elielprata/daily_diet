@@ -1,5 +1,6 @@
+import { useCallback, useState } from "react";
 import { SectionList } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { Avatar, Container, Header, Logo } from "./styles";
 
@@ -11,45 +12,29 @@ import { Button } from "@components/Button";
 import { Meal } from "@components/Meal";
 import { MealHeader } from "@components/MealHeader";
 
+import { mealsGetSectionList } from "@storage/meal/mealsGetSectionList";
+
 export function Home() {
+  const [meals, setMeals] = useState([]);
+
   const { navigate } = useNavigation();
 
   function handleOpenStatistics() {
     navigate("statistics");
   }
 
-  const data = [
-    {
-      day: "10.02.23",
-      data: [
-        {
-          hour: "16:00",
-          description: "Lanche",
-          status: false,
-        },
-        {
-          hour: "12:00",
-          description: "Comida Fitness",
-          status: true,
-        },
-      ],
-    },
-    {
-      day: "11.02.23",
-      data: [
-        {
-          hour: "16:00",
-          description: "Comida",
-          status: true,
-        },
-        {
-          hour: "12:00",
-          description: "Suplemento",
-          status: true,
-        },
-      ],
-    },
-  ];
+  async function fetchMeals() {
+    const data = await mealsGetSectionList();
+
+    setMeals(data);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals();
+    }, [])
+  );
+
   return (
     <Container>
       <Header>
@@ -60,19 +45,22 @@ export function Home() {
 
       <Percent percentage={90.86} onPress={handleOpenStatistics} />
 
-      <Button title="Nova Refeição" onPress={() => console.log("ok")} />
+      <Button title="Nova Refeição" onPress={() => navigate("createMeal")} />
 
       <SectionList
-        sections={data}
+        sections={meals}
         keyExtractor={(item, index) => item.hour + index}
         renderItem={({ item }) => (
           <Meal
             hour={item.hour}
-            description={item.description}
+            description={item.name}
             status={item.status}
+            onPress={() => navigate("infoMeal", { meal: item })}
           />
         )}
-        renderSectionHeader={({ section: { day } }) => <MealHeader day={day} />}
+        renderSectionHeader={({ section: { date } }) => (
+          <MealHeader date={date} />
+        )}
       />
     </Container>
   );
