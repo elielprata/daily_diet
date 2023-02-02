@@ -6,7 +6,7 @@ import {
 
 import { Routes } from "./src/routes";
 
-import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 
 import theme from "./src/theme";
@@ -16,7 +16,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar style="auto" />
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
       {fontsLoaded && <Routes />}
     </ThemeProvider>
   );
